@@ -1,0 +1,24 @@
+[submodule "authentication-service"]
+	path = authentication-service
+	url = git@github.com:Prm-Ban/pb-authentication-service.git
+[submodule "payment-service"]
+	path = payment-service
+	url = git@github.com:Prm-Ban/pb-payment-service.git
+[submodule "stock-service"]
+	path = stock-service
+	url = git@github.com:Prm-Ban/pb-stock-service.git
+[submodule "sales-service"]
+	path = sales-service
+	url = git@github.com:Prm-Ban/pb-sales-service.git
+[submodule "product-service"]
+	path = product-service
+	url = git@github.com:Prm-Ban/pb-sales-service.git
+[submodule "zuul-server"]
+	path = zuul-server
+	url = git@github.com:Prm-Ban/pb-zuul-service.git
+[submodule "config-server"]
+	path = config-server
+	url = git@github.com:Prm-Ban/pb-config-service.git
+[submodule "eureka-server"]
+	path = eureka-server
+	url = git@github.com:Prm-Ban/pb-eureka-service.git
