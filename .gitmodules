@@ -10,9 +10,6 @@
 [submodule "sales-service"]
 	path = sales-service
 	url = git@github.com:Prm-Ban/pb-sales-service.git
-[submodule "product-service"]
-	path = product-service
-	url = git@github.com:Prm-Ban/pb-sales-service.git
 [submodule "zuul-server"]
 	path = zuul-server
 	url = git@github.com:Prm-Ban/pb-zuul-service.git
