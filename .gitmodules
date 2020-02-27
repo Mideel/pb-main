@@ -19,3 +19,6 @@
 [submodule "eureka-server"]
 	path = eureka-server
 	url = git@github.com:Prm-Ban/pb-eureka-service.git
+[submodule "product-service"]
+	path = product-service
+	url = git@github.com:Prm-Ban/pb-product-service.git
