@@ -1,11 +1,11 @@
 version: '2'
 services:
   eurekaserver:
-   image:   johncarnell/tmx-eurekasvr:chapter8
+   image: pb-eureka-server:snapshot
    ports:
        - "8761:8761"
   configserver:
-    image: johncarnell/tmx-confsvr:chapter8
+    image: pb-config-server:snapshot
     ports:
        - "8888:8888"
     environment:
@@ -13,7 +13,7 @@ services:
        EUREKASERVER_PORT: "8761"
 #       ENCRYPT_KEY:       "IMSYMMETRIC"
   zuulserver:
-    image: johncarnell/tmx-zuulsvr:chapter8
+    image: pb-zuul-server:snapshot
     ports:
       - "5555:5555"
     environment:
@@ -25,20 +25,56 @@ services:
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
   database:
-    image: postgres:9.5
+    image: pb-postgres:0.1
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=dbexerphi_dba
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=eagle_eye_local_test
-  licensingservice:
-    image: johncarnell/tmx-licensing-service:chapter8
+#    environment:
+#      - POSTGRES_USER=dbexerphi_dba
+#      - POSTGRES_PASSWORD=admin
+#      - POSTGRES_DB=eagle_eye_local_test
+  authenticationservice:
+    image: pb-authentication-service:snapshot
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
-      PROFILE: "test"
-      SERVER_PORT: "8080"
+      PROFILE: "default"
+      SERVER_PORT: "8081"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
+      DATABASESERVER_PORT: "5432"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      ZUULSERVER_PORT:     "5555"
+      KAFKASERVER_PORT:    "2181"
+      REDIS_PORT:          "6379"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+  productservice:
+    image: pb-product-service:snapshot
+    ports:
+      - "8082:8082"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8082"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
+      DATABASESERVER_PORT: "5432"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_PORT: "8888"
+      ZUULSERVER_PORT: "5555"
+      KAFKASERVER_PORT: "2181"
+      REDIS_PORT:          "6379"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+  stockservice:
+    image: pb-stock-service:snapshot
+    ports:
+      - "8083:8083"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8083"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       KAFKASERVER_URI: "kafkaserver"
@@ -50,12 +86,29 @@ services:
       KAFKASERVER_PORT:    "2181"
       REDIS_PORT:          "6379"
 #      ENCRYPT_KEY:       "IMSYMMETRIC"
-  organizationservice:
-    image: johncarnell/tmx-organization-service:chapter8
+  saleservice:
+    image: pb-sales-service:snapshot
+    ports:
+      - "8084:8084"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8084"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
+      DATABASESERVER_PORT: "5432"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      ZUULSERVER_PORT:     "5555"
+      KAFKASERVER_PORT:    "2181"
+      REDIS_PORT:          "6379"
+  paymentservice:
+    image: pb-payment-service:snapshot
     ports:
       - "8085:8085"
     environment:
-      PROFILE: "test"
+      PROFILE: "default"
       SERVER_PORT: "8085"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
@@ -66,7 +119,7 @@ services:
       CONFIGSERVER_PORT:   "8888"
       ZUULSERVER_PORT:     "5555"
       KAFKASERVER_PORT:    "2181"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
+      REDIS_PORT:          "6379"
   redis:
     image: redis:alpine
     ports:
